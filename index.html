@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        var map
+
+
+        function initMap() {
+            var directionsDisplay = new google.maps.DirectionsRenderer({
+                suppressMarkers: true,
+                polylineOptions: {
+                    strokeColor: "#f58220",
+                    strokeWeight: 5
+                }
+            })
+            var directionsService = new google.maps.DirectionsService
+            const markers = [{
+                name: 'Wangaratta',
+                lat: -36.367692,
+                lng: 146.315440
+            }, {
+                name: 'Bright',
+                lat: -36.732862,
+                lng: 146.983344
+            }, {
+                name: 'Omeo',
+                lat: -37.100044,
+                lng: 147.600097
+            }, {
+                name: 'Metung',
+                lat: -37.883327,
+                lng: 147.849865
+            }]
+
+            const icon = {
+                url: 'https://firebasestorage.googleapis.com/v0/b/varkala-map-1512622053521.appspot.com/o/lumberjack%20marker.png?alt=media&token=87589806-9233-4434-88e9-be35f91e5fbe',
+                scaledSize: new google.maps.Size(35, 48)
+            }
+
+            var metung = new google.maps.LatLng(-37.883327, 147.849865)
+            var wangaratta = new google.maps.LatLng(-36.367692, 146.315440)
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: -37.169742,
+                    lng: 146.332154
+                },
+                zoom: 8,
+
+                styles: [{
+                    elementType: 'geometry',
+                    stylers: [{
+                        color: '#1f1f1f'
+                    }]
+                }, {
+                    elementType: 'labels.text.stroke',
+                    stylers: [{
+                        color: '#242f3e'
+                    }]
+                }, {
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#746855'
+                    }]
+                }, {
+                    featureType: 'administrative.locality',
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#d59563'
+                    }]
+                }, {
+                    featureType: 'poi',
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#d59563'
+                    }]
+                }, {
+                    featureType: 'poi.park',
+                    elementType: 'geometry',
+                    stylers: [{
+                        color: '#1f1f1f'
+                    }]
+                }, {
+                    featureType: 'poi.park',
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#6b9a76'
+                    }]
+                }, {
+                    featureType: 'road',
+                    elementType: 'geometry',
+                    stylers: [{
+                        color: '#854914'
+                    }]
+                }, {
+                    featureType: 'road',
+                    elementType: 'geometry.stroke',
+                    stylers: [{
+                        color: '#854914'
+                    }]
+                }, {
+                    featureType: 'road',
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#9ca5b3'
+                    }]
+                }, {
+                    featureType: 'road.highway',
+                    elementType: 'geometry',
+                    stylers: [{
+                        color: '#854914'
+                    }]
+                }, {
+                    featureType: 'road.highway',
+                    elementType: 'geometry.stroke',
+                    stylers: [{
+                        color: '#854914'
+                    }]
+                }, {
+                    featureType: 'road.highway',
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#f3d19c'
+                    }]
+                }, {
+                    featureType: 'transit',
+                    elementType: 'geometry',
+                    stylers: [{
+                        color: '#1f1f1f'
+                    }]
+                }, {
+                    featureType: 'transit.station',
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#d59563'
+                    }]
+                }, {
+                    featureType: 'water',
+                    elementType: 'geometry',
+                    stylers: [{
+                        color: '#053f5b'
+                    }]
+                }, {
+                    featureType: 'water',
+                    elementType: 'labels.text.fill',
+                    stylers: [{
+                        color: '#515c6d'
+                    }]
+                }, {
+                    featureType: 'water',
+                    elementType: 'labels.text.stroke',
+                    stylers: [{
+                        color: '#17263c'
+                    }]
+                }]
+            });
+            directionsDisplay.setMap(map)
+            calculateAndDisplayRoute(directionsService, directionsDisplay)
+
+            function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                directionsService.route({
+                    origin: {
+                        lat: -37.883327,
+                        lng: 147.849865
+                    },
+                    destination: {
+                        lat: -36.367692,
+                        lng: 146.315440
+                    },
+                    // waypoints: [{
+                    //     location: {
+                    //         lat: -37.883327,
+                    //         lng: 147.849865
+                    //     },
+                    //     stopover: false
+                    // }, {
+                    //     location: {
+                    //         lat: -36.732862,
+                    //         lng: 146.983344
+                    //     },
+                    //     stopover: false
+                    // }, {
+                    //     location: {
+                    //         lat: -37.083510,
+                    //         lng: 147.600337
+                    //     },
+                    //     stopover: false
+                    // }, {
+                    //     location: {
+                    //         lat: -36.367692,
+                    //         lng: 146.315440
+                    //     },
+                    //     stopover: false
+                    // }],
+                    travelMode: google.maps.TravelMode.DRIVING
+                }, function(response, status) {
+                    if (status == 'OK') {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+            }
+            markers.map(marker => {
+                return new google.maps.Marker({
+                    position: {
+                        lat: marker.lat,
+                        lng: marker.lng
+                    },
+                    map: map,
+                    icon: icon
+                });
+            })
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcKJweeLslMSG5pu49Iv6p5IJ3LuuRBKM&callback=initMap" async defer></script>
+</body>
+
+</html>
